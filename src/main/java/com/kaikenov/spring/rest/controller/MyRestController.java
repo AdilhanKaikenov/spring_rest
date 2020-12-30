@@ -1,12 +1,9 @@
 package com.kaikenov.spring.rest.controller;
 
 import com.kaikenov.spring.rest.entity.Employee;
-import com.kaikenov.spring.rest.exception_handling.EmployeeIncorrectData;
 import com.kaikenov.spring.rest.exception_handling.NoSuchEmployeeException;
 import com.kaikenov.spring.rest.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +30,13 @@ public class MyRestController {
             throw new NoSuchEmployeeException("There is no employee with ID = " +
                     id + " in Database");
         }
+
+        return employee;
+    }
+
+    @PostMapping("/employees")
+    public Employee addNewEmployee(@RequestBody Employee employee) {
+        employeeService.saveEmployee(employee);
 
         return employee;
     }
